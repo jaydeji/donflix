@@ -32,5 +32,8 @@ export default {
   color: white;
 }
 ul {
+  li {
+    list-style: none;
+  }
 }
 </style>
