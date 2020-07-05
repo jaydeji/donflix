@@ -1,5 +1,5 @@
 export default {
-  SAVE_MOVIES(state, movies) {
-    state.movies = movies;
+  NOW_PLAYING(state, payload) {
+    state.nowPlaying = payload.results;
   },
 };

@@ -3,7 +3,14 @@ import mutations from './mutations';
 
 export default {
   state: {
-    movies: null,
+    nowPlaying: [],
+  },
+  getters: {
+    images: (state) => {
+      return state.nowPlaying
+        .filter((_, i) => i < 3)
+        .map((e) => e.backdrop_path);
+    },
   },
   mutations,
   actions,

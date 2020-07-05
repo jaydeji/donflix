@@ -6,11 +6,9 @@
 import Head from './components/Head.vue';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://developers.themoviedb.org/4/';
+axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers[
-  'Authorization'
-] = `Bearer ${process.env.VUE_APP_API_KEY}`;
+axios.defaults.headers['Authorization'] = `Bearer ${process.env.VUE_APP_KEY}`;
 
 export default {
   name: 'App',
@@ -20,4 +18,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap');
+* {
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+</style>
