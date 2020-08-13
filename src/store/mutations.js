@@ -8,6 +8,12 @@ export default {
   POPULAR(state, payload) {
     state.popular = payload;
   },
+  SINGLE(state, payload) {
+    state.single = payload;
+  },
+  SIMILAR(state, payload) {
+    state.similar = payload.results;
+  },
   SET_SHOW(state, payload) {
     state.nowPlaying.forEach((e, i) => {
       if (i === payload) {

@@ -28,7 +28,7 @@ export default {
       clicked: false,
       clicked2: false,
       id: "",
-      id2: ""
+      id2: "",
     };
   },
   methods: {
@@ -47,14 +47,14 @@ export default {
     },
     close2() {
       this.clicked2 = false;
-    }
+    },
   },
   components: {
     Title,
     Card,
-    Trailer
+    Trailer,
   },
-  created: function() {
+  created: function () {
     this.$store.dispatch("recommended");
     this.$store.dispatch("popular");
   },
@@ -76,12 +76,12 @@ export default {
       return x?.video_url2
         ? `http://www.youtube.com/embed/${x.video_url2}`
         : false;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style >
 .holder {
   display: flex;
   flex-wrap: wrap;

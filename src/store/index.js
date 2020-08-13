@@ -8,6 +8,8 @@ export default {
     video_url: null,
     video_url2: null,
     popular: null,
+    single: null,
+    similar: null,
   },
   getters: {
     recommendations: (state) => {
@@ -21,6 +23,15 @@ export default {
     },
     popular: (state) => {
       return state.popular?.map((e) => ({
+        url: `url(https://image.tmdb.org/t/p/original${e.poster_path})`,
+        title: e.original_title,
+        year: e.release_date.slice(0, 4),
+        rating: e.vote_average,
+        id: e.id,
+      }));
+    },
+    similar: (state) => {
+      return state.similar?.map((e) => ({
         url: `url(https://image.tmdb.org/t/p/original${e.poster_path})`,
         title: e.original_title,
         year: e.release_date.slice(0, 4),

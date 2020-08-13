@@ -32,6 +32,7 @@ export default {
     );
     commit('RECOMMENDED', x);
   },
+
   async getVideo({ commit }, payload) {
     const res = await axios
       .get(`movie/${payload.url}/videos`)
@@ -43,6 +44,7 @@ export default {
       id: payload.number,
     });
   },
+
   async popular({ commit }) {
     const res = await axios.get('movie/popular').catch((error) => {
       throw new Error(`API ${error}`);
@@ -53,5 +55,19 @@ export default {
         .map((el) => axios.get(`movie/${el.id.toString()}`).then((e) => e.data))
     );
     commit('POPULAR', x);
+  },
+
+  async single({ commit }, id) {
+    const res = await axios.get(`movie/${id}`).catch((error) => {
+      throw new Error(`API ${error}`);
+    });
+    commit('SINGLE', res.data);
+  },
+
+  async similar({ commit }, id) {
+    const res = await axios.get(`movie/${id}/similar`).catch((error) => {
+      throw new Error(`API ${error}`);
+    });
+    commit('SIMILAR', res.data);
   },
 };

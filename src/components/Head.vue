@@ -6,7 +6,7 @@
         <div
           v-if="original[0].show"
           class="showcase"
-          :style="{backgroundImage:'url(' +original[0].myVid +')'}"
+          :style="{ backgroundImage: 'url(' + original[0].myVid + ')' }"
         >
           <Details :detail="original[0]"></Details>
         </div>
@@ -15,7 +15,7 @@
         <div
           v-if="original[1].show"
           class="showcase"
-          :style="{backgroundImage:'url(' +original[1].myVid +')'}"
+          :style="{ backgroundImage: 'url(' + original[1].myVid + ')' }"
         >
           <Details :detail="original[1]"></Details>
         </div>
@@ -24,45 +24,57 @@
         <div
           v-if="original[2].show"
           class="showcase"
-          :style="{backgroundImage:'url(' +original[2].myVid +')'}"
+          :style="{ backgroundImage: 'url(' + original[2].myVid + ')' }"
         >
           <Details :detail="original[2]"></Details>
         </div>
       </transition>
       <div class="sliders">
-        <div @click="setShow(0)" class="slider" :class="{opac:original[0].show}"></div>
-        <div @click="setShow(1)" class="slider" :class="{opac:original[1].show}"></div>
-        <div @click="setShow(2)" class="slider" :class="{opac:original[2].show}"></div>
+        <div
+          @click="setShow(0)"
+          class="slider"
+          :class="{ opac: original[0].show }"
+        ></div>
+        <div
+          @click="setShow(1)"
+          class="slider"
+          :class="{ opac: original[1].show }"
+        ></div>
+        <div
+          @click="setShow(2)"
+          class="slider"
+          :class="{ opac: original[2].show }"
+        ></div>
       </div>
     </template>
   </div>
 </template>
 
 <script>
-import Header from "./Header.vue";
-import Details from "./Details";
+import Header from './Header.vue';
+import Details from './Details';
 
 export default {
-  name: "Head",
+  name: 'Head',
   components: { Header, Details },
   props: {},
   created: function() {
-    this.$store.dispatch("nowPlaying");
+    this.$store.dispatch('nowPlaying');
   },
   methods: {
     setShow(e) {
-      this.$store.commit("SET_SHOW", e);
+      this.$store.commit('SET_SHOW', e);
     },
     isThere() {
       const x = this.$store.state.nowPlaying;
       return x ? true : false;
-    }
+    },
   },
   computed: {
     original() {
       return this.$store.state.nowPlaying;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -82,7 +94,7 @@ export default {
   background-color: black;
 }
 .showcase::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

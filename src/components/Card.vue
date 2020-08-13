@@ -1,14 +1,16 @@
 <template>
   <div class="wrapper">
-    <div class="cd" :style="{backgroundImage:data.url}"></div>
-    <span class="title">{{data.title}}</span>
+    <router-link :to="'detail/' + data.id.toString()">
+      <div class="cd" :style="{ backgroundImage: data.url }"></div>
+    </router-link>
+    <span class="title">{{ data.title }}</span>
     <div>
-      <span>{{data.year}}</span>
+      <span>{{ data.year }}</span>
       <span>
         <i @click="$emit('click')" class="fa fa-eye" aria-hidden="true"></i>
         <i class="fa fa-heart" style="color:red" aria-hidden="true"></i>
         <i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-        {{data.rating}}
+        {{ data.rating }}
       </span>
     </div>
   </div>
@@ -16,8 +18,8 @@
 
 <script>
 export default {
-  name: "Card",
-  props: ["data"]
+  name: 'Card',
+  props: ['data'],
 };
 </script>
 
