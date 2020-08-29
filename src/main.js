@@ -15,11 +15,11 @@ export const store = new Vuex.Store(vueStore);
 
 const routes = [
   {
-    path: '',
+    path: '/',
     component: App,
     children: [
-      { path: '', component: Home },
-      { path: 'detail/:id', component: Detail, name: 'Movie Details' },
+      { path: '/', component: Home },
+      { path: 'detail/:id', component: Detail },
     ],
   },
 ];

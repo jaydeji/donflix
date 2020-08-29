@@ -7,9 +7,11 @@ export default {
     recommended: null,
     video_url: null,
     video_url2: null,
+    video_url3: null,
     popular: null,
     single: null,
     similar: null,
+    images: null,
   },
   getters: {
     recommendations: (state) => {

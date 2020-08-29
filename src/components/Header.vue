@@ -1,20 +1,21 @@
 <template>
   <div class="main">
     <div>
-      <span>DONFLIX</span>
+      <router-link to="/">DONFLIX</router-link>
     </div>
     <ul>
-      <li>Home</li>
       <li>Movies</li>
       <li>My List</li>
-      <li>Search</li>
+      <li>
+        <i class="fa fa-search"></i>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
 };
 </script>
 
@@ -33,8 +34,9 @@ export default {
   color: white;
   z-index: 2;
 }
-.main div:first-child span:first-child {
+.main div:first-child a:first-child {
   font-size: 2rem;
+  cursor: pointer;
 }
 ul {
   display: flex;
@@ -42,6 +44,7 @@ ul {
   width: 70%;
   li {
     list-style: none;
+    cursor: pointer;
   }
 }
 </style>

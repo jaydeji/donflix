@@ -1,35 +1,49 @@
 <template>
   <div>
+    <Header />
     <OtherHead />
+    <DetailsImages />
     <div v-if="similar">
       <Title :title="'Similar movies'" />
-      <div class="holder">
-        <Card v-for="(c,key) in similar" :key="key" :data="c" v-on:click="setClick(c.id)" />
+      <div>
+        <div class="holder">
+          <Card v-for="(c,key) in similar" :key="key" :data="c" v-on:click="setClick(c.id)" />
+        </div>
       </div>
-      <Trailer v-if="clicked" v-on:trailer-close="close" :youtube="video1" />
     </div>
   </div>
 </template>
 
 <script>
 import OtherHead from "@/components/OtherHead";
-import Trailer from "@/components/Trailer";
 import Card from "@/components/Card";
 import Title from "@/components/Title";
+import Header from "@/components/Header";
+import DetailsImages from "@/components/DetailsImages";
 
 export default {
   components: {
     OtherHead,
     Card,
-    Trailer,
     Title,
+    Header,
+    DetailsImages,
+  },
+  created() {
+    this.$store.dispatch("getImages", this.$route.params.id);
   },
   computed: {
     similar() {
       return this.$store.getters.similar || false;
     },
   },
+  watch: {
+    $route() {
+      this.$store.dispatch("getImages", this.$route.params.id);
+    },
+  },
 };
 </script>
 
-<style></style>
+<style scoped>
+</style>

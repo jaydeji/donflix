@@ -6,7 +6,6 @@
 
 <script>
 import axios from 'axios';
-// import Home from './pages/Home';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';

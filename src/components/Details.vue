@@ -26,8 +26,8 @@ export default {
     duration() {
       const x = this.detail.runtime;
       return Math.floor(x / 60) + "h : " + (x % 60) + "m";
-    }
-  }
+    },
+  },
 };
 </script>
 

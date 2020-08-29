@@ -2,15 +2,24 @@
   <div>
     <div v-if="popular">
       <Title :title="'Popular'" />
-      <div class="holder">
-        <Card v-for="(c,key) in popular" :key="key" :data="c" v-on:click="setClick2(c.id)" />
+      <div>
+        <div class="holder">
+          <Card v-for="(c,key) in popular" :key="key" :data="c" v-on:click="setClick2(c.id)" />
+        </div>
       </div>
       <Trailer v-if="clicked2" v-on:trailer-close="close2" :youtube="video2" />
     </div>
     <div v-if="recommendations">
-      <Title :title="'Highly Rated'" />
-      <div class="holder">
-        <Card v-for="(c,key) in recommendations" :key="key" :data="c" v-on:click="setClick(c.id)" />
+      <Title :title="'Trending'" />
+      <div>
+        <div class="holder">
+          <Card
+            v-for="(c,key) in recommendations"
+            :key="key"
+            :data="c"
+            v-on:click="setClick(c.id)"
+          />
+        </div>
       </div>
       <Trailer v-if="clicked" v-on:trailer-close="close" :youtube="video1" />
     </div>
@@ -85,6 +94,7 @@ export default {
 .holder {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  /* justify-content: center; */
+  margin: 0 auto;
 }
 </style>

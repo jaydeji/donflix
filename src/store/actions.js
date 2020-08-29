@@ -22,7 +22,7 @@ export default {
     commit('NOW_PLAYING', x);
   },
   async recommended({ commit }) {
-    const res = await axios.get('movie/top_rated').catch((error) => {
+    const res = await axios.get('trending/movie/day').catch((error) => {
       throw new Error(`API ${error}`);
     });
     const x = await axios.all(
@@ -42,6 +42,19 @@ export default {
     commit('VIDEO_URL', {
       data: res.data.results?.[0]?.key,
       id: payload.number,
+    });
+  },
+
+  async getImages({ commit }, payload) {
+    const res = await axios.get(`movie/${payload}/images`).catch((error) => {
+      throw new Error(`API ${error}`);
+    });
+    commit('IMAGES', {
+      data: res.data.backdrops
+        ?.filter((_, i) => i < 6)
+        .map((e) => {
+          return `https://image.tmdb.org/t/p/original${e.file_path}`;
+        }),
     });
   },
 

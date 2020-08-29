@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <router-link :to="'detail/' + data.id.toString()">
+    <router-link :key="$route.fullPath" :to="'/detail/' + data.id.toString()">
       <div class="cd" :style="{ backgroundImage: data.url }"></div>
     </router-link>
     <span class="title">{{ data.title }}</span>
@@ -18,8 +18,8 @@
 
 <script>
 export default {
-  name: 'Card',
-  props: ['data'],
+  name: "Card",
+  props: ["data"],
 };
 </script>
 

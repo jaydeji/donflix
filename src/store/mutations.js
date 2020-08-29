@@ -26,5 +26,9 @@ export default {
   VIDEO_URL(state, payload) {
     if (payload.id === 1) state.video_url = payload.data;
     if (payload.id === 2) state.video_url2 = payload.data;
+    if (payload.id === 3) state.video_url3 = payload.data;
+  },
+  IMAGES(state, payload) {
+    state.images = payload.data;
   },
 };
