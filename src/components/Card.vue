@@ -4,9 +4,9 @@
       <div class="cd" :style="{ backgroundImage: data.url }"></div>
     </router-link>
     <span class="title">{{ data.title }}</span>
-    <div>
-      <span>{{ data.year }}</span>
-      <span>
+    <div style="display:flex;justify-content:space-between">
+      <span class="year">{{ data.year }}</span>
+      <span style="width:60%;display:flex;justify-content:space-between">
         <i @click="$emit('click')" class="fa fa-eye" style="cursor:pointer" aria-hidden="true"></i>
         <i
           class="fa fa-heart"
@@ -15,7 +15,7 @@
           aria-hidden="true"
         ></i>
         <i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-        {{ data.rating }}
+        <span style="color:yellow">{{ data.rating }}</span>
       </span>
     </div>
   </div>
@@ -42,6 +42,8 @@ export default {
 <style scoped>
 .wrapper {
   width: 200px;
+  margin-right: 10px;
+  margin-bottom: 20px;
 }
 .cd {
   height: 300px;
@@ -50,5 +52,12 @@ export default {
 }
 .title {
   text-overflow: ellipsis;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+.fa-eye,
+.year {
+  opacity: 0.7;
 }
 </style>
