@@ -1,6 +1,14 @@
 import actions from './actions';
 import mutations from './mutations';
 
+const getLocal = (data) => {
+  try {
+    return JSON.parse(data);
+  } catch (error) {
+    return data;
+  }
+};
+
 export default {
   state: {
     nowPlaying: null,
@@ -12,13 +20,15 @@ export default {
     single: null,
     similar: null,
     images: null,
+    searchMovie: undefined,
+    list: getLocal(localStorage.getItem('list')) || [],
   },
   getters: {
     recommendations: (state) => {
       return state.recommended?.map((e) => ({
         url: `url(https://image.tmdb.org/t/p/original${e.poster_path})`,
         title: e.original_title,
-        year: e.release_date.slice(0, 4),
+        year: e?.release_date.slice(0, 4),
         rating: e.vote_average,
         id: e.id,
       }));
@@ -27,7 +37,7 @@ export default {
       return state.popular?.map((e) => ({
         url: `url(https://image.tmdb.org/t/p/original${e.poster_path})`,
         title: e.original_title,
-        year: e.release_date.slice(0, 4),
+        year: e.release_date?.slice(0, 4),
         rating: e.vote_average,
         id: e.id,
       }));
@@ -36,10 +46,21 @@ export default {
       return state.similar?.map((e) => ({
         url: `url(https://image.tmdb.org/t/p/original${e.poster_path})`,
         title: e.original_title,
-        year: e.release_date.slice(0, 4),
+        year: e.release_date?.slice(0, 4),
         rating: e.vote_average,
         id: e.id,
       }));
+    },
+    searchMovie: (state) => {
+      return state.searchMovie === null
+        ? null
+        : state.searchMovie?.results?.map((e) => ({
+            url: `url(https://image.tmdb.org/t/p/original${e.poster_path})`,
+            title: e.original_title,
+            year: e.release_date?.slice(0, 4),
+            rating: e.vote_average,
+            id: e.id,
+          }));
     },
   },
   mutations,

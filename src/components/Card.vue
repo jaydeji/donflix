@@ -7,8 +7,13 @@
     <div>
       <span>{{ data.year }}</span>
       <span>
-        <i @click="$emit('click')" class="fa fa-eye" aria-hidden="true"></i>
-        <i class="fa fa-heart" style="color:red" aria-hidden="true"></i>
+        <i @click="$emit('click')" class="fa fa-eye" style="cursor:pointer" aria-hidden="true"></i>
+        <i
+          class="fa fa-heart"
+          @click="handleClick"
+          :style="'color:'+color+';cursor:pointer'"
+          aria-hidden="true"
+        ></i>
         <i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
         {{ data.rating }}
       </span>
@@ -20,6 +25,17 @@
 export default {
   name: "Card",
   props: ["data"],
+  methods: {
+    handleClick() {
+      this.$store.commit("LIST", this.data);
+    },
+  },
+  computed: {
+    color() {
+      const x = this.$store.state.list?.find((e) => e.id === this.data.id);
+      return x ? "red" : "white";
+    },
+  },
 };
 </script>
 

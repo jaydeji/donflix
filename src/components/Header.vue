@@ -4,10 +4,13 @@
       <router-link to="/">DONFLIX</router-link>
     </div>
     <ul>
-      <li>Movies</li>
-      <li>My List</li>
       <li>
-        <i class="fa fa-search"></i>
+        <router-link to="/favourites">My List</router-link>
+      </li>
+      <li>
+        <router-link to="/search">
+          <i class="fa fa-search"></i>
+        </router-link>
       </li>
     </ul>
   </div>

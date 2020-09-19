@@ -31,4 +31,22 @@ export default {
   IMAGES(state, payload) {
     state.images = payload.data;
   },
+  SEARCHMOVIE(state, payload) {
+    state.searchMovie = payload;
+  },
+  CLEARMOVIE(state) {
+    state.searchMovie = null;
+  },
+  RESETMOVIE(state) {
+    state.searchMovie = undefined;
+  },
+  LIST(state, payload) {
+    const exists = state.list?.find((e) => e.id === payload.id);
+    if (exists) {
+      state.list = state.list.filter((e) => e.id !== exists.id);
+    } else {
+      state.list.push(payload);
+    }
+    localStorage.setItem('list', JSON.stringify(state.list));
+  },
 };

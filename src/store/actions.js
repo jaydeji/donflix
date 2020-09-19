@@ -83,4 +83,13 @@ export default {
     });
     commit('SIMILAR', res.data);
   },
+
+  async searchMovie({ commit }, searchString) {
+    const res = await axios
+      .get('search/movie?query=' + searchString)
+      .catch((error) => {
+        throw new Error(`API ${error}`);
+      });
+    commit('SEARCHMOVIE', res.data);
+  },
 };

@@ -2,6 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import Home from './pages/Home';
 import Detail from './pages/Other';
+import Search from './pages/Search';
+import List from './pages/List';
 import Vuex from 'vuex';
 import vueStore from './store/';
 import VueRouter from 'vue-router';
@@ -20,6 +22,8 @@ const routes = [
     children: [
       { path: '/', component: Home },
       { path: 'detail/:id', component: Detail },
+      { path: '/search', component: Search },
+      { path: '/favourites', component: List },
     ],
   },
 ];
