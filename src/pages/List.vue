@@ -7,19 +7,22 @@
         <Card v-for="(c,key) in list" :key="key" :data="c" v-on:click="setClick(c.id)" />
       </div>
     </div>
-    <div v-else>No Favourites</div>
+    <div style="text-align:center" v-else>No Favourites</div>
+    <Footer v-if="list" />
   </div>
 </template>
 
 <script>
 import Card from "../components/Card";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default {
   name: "List",
   components: {
     Card,
     Header,
+    Footer,
   },
   computed: {
     list() {

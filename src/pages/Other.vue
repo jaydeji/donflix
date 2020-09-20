@@ -11,6 +11,7 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import Card from "@/components/Card";
 import Title from "@/components/Title";
 import Header from "@/components/Header";
 import DetailsImages from "@/components/DetailsImages";
+import Footer from "@/components/Footer";
 
 export default {
   components: {
@@ -28,6 +30,7 @@ export default {
     Title,
     Header,
     DetailsImages,
+    Footer,
   },
   created() {
     this.$store.dispatch("getImages", this.$route.params.id);
