@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div>
+    <div class="home">
       <router-link to="/">DONFLIX</router-link>
     </div>
     <ul>
@@ -48,6 +48,12 @@ ul {
   li {
     list-style: none;
     cursor: pointer;
+    &:hover {
+      color: green;
+    }
   }
+}
+.home:hover {
+  color: green;
 }
 </style>

@@ -48,10 +48,10 @@ export default {
   props: {},
   created: function () {
     this.$store.dispatch("nowPlaying");
-    setInterval(this.skip, 7000);
+    this.interval = setInterval(this.skip, 7000);
   },
   beforeDestroy() {
-    clearInterval(this.skip);
+    clearInterval(this.interval);
   },
   methods: {
     setShow(e) {

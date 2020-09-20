@@ -94,7 +94,7 @@ export default {
 .holder {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center; */
+  justify-content: center;
   margin: 0 auto;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>
+    <span class="title">
       <i class="fa fa-line-chart" aria-hidden="true"></i>
       {{title}}
     </span>
@@ -12,7 +12,7 @@
 <script>
 export default {
   name: "Title",
-  props: ["title"]
+  props: ["title"],
 };
 </script>
 
@@ -21,5 +21,12 @@ export default {
   height: 0.5px;
   color: white;
   width: 90%;
+}
+.title {
+  font-size: 1.3rem;
+  text-align: center;
+  display: block;
+  margin: 20px;
+  color: green;
 }
 </style>
