@@ -26,18 +26,19 @@
     <div v-if="single" class="details">
       <img :src="'https://image.tmdb.org/t/p/original' + single.poster_path" alt />
       <div>
-        <span>{{single.original_title}}</span>
-        <span>{{single.overview}}</span>
-        <span>Duration: {{duration}}</span>
-        <span>
+        <span class="mb-1">{{single.original_title}}</span>
+        <span class="mb-1">{{single.overview}}</span>
+        <span class="mb-1">Duration: {{duration}}</span>
+        <span class="mb-1">
           <i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
           {{single.vote_average}}
         </span>
-        <button>
+        <button class="watch mb-1">
           <i class="fa fa-play" aria-hidden="true"></i> WATCH
         </button>
-        <button>
-          <i class="fa fa-plus" aria-hidden="true"></i> ADD TO LIST
+        <button class="add" style="margin-left:-20px" @click="handleClick">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          {{!exists?'ADD TO':'REMOVE FROM'}} LIST
         </button>
       </div>
     </div>
@@ -66,6 +67,17 @@ export default {
       this.show = false;
       this.$store.dispatch("getVideo", { url: this.single.id, number: 3 });
     },
+    handleClick() {
+      const e = this.single;
+      this.$store.commit("LIST", {
+        ...this.detail,
+        url: `url(https://image.tmdb.org/t/p/original${e.poster_path})`,
+        title: e.original_title,
+        year: e?.release_date.slice(0, 4),
+        rating: e.vote_average,
+        id: e.id,
+      });
+    },
   },
   computed: {
     single() {
@@ -81,6 +93,10 @@ export default {
     video3() {
       const x = this.$store.state.video_url3;
       return x ? `http://www.youtube.com/embed/${x}?autoplay=1` : false;
+    },
+    exists() {
+      const x = this.$store.state.list?.find((e) => e.id === this.single.id);
+      return x;
     },
   },
   watch: {

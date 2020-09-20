@@ -4,7 +4,7 @@
     <OtherHead />
     <DetailsImages />
     <div v-if="similar">
-      <Title :title="'Similar movies'" />
+      <Title :title="'Similar Movies'" />
       <div>
         <div class="holder">
           <Card v-for="(c,key) in similar" :key="key" :data="c" v-on:click="setClick(c.id)" />

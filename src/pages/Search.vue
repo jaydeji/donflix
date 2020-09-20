@@ -1,11 +1,6 @@
 <template>
-  <div>
-    <div>
-      <router-link
-        to="/"
-        style="color:green;display:block;cursor:pointer;font-size:2rem; margin:10px 0 0 30px;"
-      >DONFLIX</router-link>
-    </div>
+  <div style="margin-top:80px">
+    <Header />
     <div style="display:flex;justify-content:center;margin:20px 0">
       <form v-on:submit.prevent="handleSearch" class="search-box">
         <input v-model.trim="search" />
@@ -32,11 +27,13 @@
 <script>
 import Card from "@/components/Card";
 import Title from "@/components/Title";
+import Header from "@/components/Header";
 
 export default {
   components: {
     Card,
     Title,
+    Header,
   },
   data() {
     return {

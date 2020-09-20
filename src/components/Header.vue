@@ -4,7 +4,7 @@
       <router-link to="/">DONFLIX</router-link>
     </div>
     <ul>
-      <li>
+      <li style="margin-right:20px">
         <router-link to="/favourites">My List</router-link>
       </li>
       <li>
@@ -43,7 +43,7 @@ export default {
 }
 ul {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 70%;
   li {
     list-style: none;

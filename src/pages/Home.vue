@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Head></Head>
+    <Head />
     <Body />
   </div>
 </template>
 
 <script>
-import Head from '../components/Head';
-import Body from '../components/Body';
+import Head from "../components/Head";
+import Body from "../components/Body";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     Head,
     Body,

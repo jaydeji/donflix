@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <div v-if="list" class="holder">
-      <Card v-for="(c,key) in list" :key="key" :data="c" v-on:click="setClick(c.id)" />
+  <div style="margin-top:80px">
+    <Header />
+    <div v-if="list">
+      <div class="title">Favourites</div>
+      <div class="holder">
+        <Card v-for="(c,key) in list" :key="key" :data="c" v-on:click="setClick(c.id)" />
+      </div>
     </div>
     <div v-else>No Favourites</div>
   </div>
@@ -9,14 +13,13 @@
 
 <script>
 import Card from "../components/Card";
+import Header from "../components/Header";
 
 export default {
   name: "List",
   components: {
     Card,
-  },
-  data() {
-    return {};
+    Header,
   },
   computed: {
     list() {
@@ -27,5 +30,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 20px;
+}
 </style>
