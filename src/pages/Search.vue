@@ -51,7 +51,7 @@ export default {
       return this.$store.getters.searchMovie;
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.commit("RESETMOVIE");
   },
 };

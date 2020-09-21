@@ -50,7 +50,7 @@ export default {
     this.$store.dispatch("nowPlaying");
     this.interval = setInterval(this.skip, 7000);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     clearInterval(this.interval);
   },
   methods: {
