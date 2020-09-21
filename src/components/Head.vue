@@ -46,6 +46,11 @@ export default {
   name: "Head",
   components: { Header, Details },
   props: {},
+  data() {
+    return {
+      skipCount: 1,
+    };
+  },
   created: function () {
     this.$store.dispatch("nowPlaying");
     this.interval = setInterval(this.skip, 7000);
@@ -62,7 +67,8 @@ export default {
       return x ? true : false;
     },
     skip() {
-      this.setShow(Math.ceil(Math.random() * 3)) - 1;
+      this.setShow(this.skipCount);
+      this.skipCount === 2 ? (this.skipCount = 0) : this.skipCount++;
     },
   },
   computed: {
