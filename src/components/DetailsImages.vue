@@ -5,11 +5,13 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
-  computed: {
-    images() {
-      return this.$store.state.images ?? false;
-    },
+  setup() {
+    const store = useStore();
+    const images = computed(() => store.state.images ?? false);
+    return { images };
   },
 };
 </script>

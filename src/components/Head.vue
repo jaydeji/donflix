@@ -41,40 +41,36 @@
 <script>
 import Header from "./Header.vue";
 import Details from "./Details";
+import { reactive, onBeforeUnmount, computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "Head",
   components: { Header, Details },
-  props: {},
-  data() {
-    return {
-      skipCount: 1,
+  setup() {
+    const store = useStore();
+    const state = reactive({ skipCount: 1 });
+    const original = computed(() => store.state.nowPlaying);
+
+    store.dispatch("nowPlaying");
+
+    const skip = () => {
+      setShow(state.skipCount);
+      state.skipCount === 2 ? (state.skipCount = 0) : state.skipCount++;
     };
-  },
-  created: function () {
-    this.$store.dispatch("nowPlaying");
-    this.interval = setInterval(this.skip, 7000);
-  },
-  beforeUnmount() {
-    clearInterval(this.interval);
-  },
-  methods: {
-    setShow(e) {
-      this.$store.commit("SET_SHOW", e);
-    },
-    isThere() {
-      const x = this.$store.state.nowPlaying;
+
+    const interval = setInterval(skip, 7000);
+
+    const setShow = (e) => store.commit("SET_SHOW", e);
+
+    const isThere = () => {
+      const x = store.state.nowPlaying;
       return x ? true : false;
-    },
-    skip() {
-      this.setShow(this.skipCount);
-      this.skipCount === 2 ? (this.skipCount = 0) : this.skipCount++;
-    },
-  },
-  computed: {
-    original() {
-      return this.$store.state.nowPlaying;
-    },
+    };
+
+    onBeforeUnmount(() => clearInterval(interval));
+
+    return { state, setShow, isThere, original };
   },
 };
 </script>

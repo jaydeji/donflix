@@ -8,19 +8,19 @@
       backgroundImage:
         'url(https://image.tmdb.org/t/p/original' + single.backdrop_path + ')',
     }"
-      @mouseover="isHovering = true"
-      @mouseout="isHovering = false"
+      @mouseover="state.isHovering = true"
+      @mouseout="state.isHovering = false"
     >
-      <div v-if="show" :class="{hovering: isHovering}" class="play">
+      <div v-if="state.show" :class="{hovering: state.isHovering}" class="play">
         <span>{{single.original_title}}</span>
         <img @click="getVideo" src="/assets/play.png" alt />
       </div>
       <Trailer
-        v-if="!show"
+        v-if="!state.show"
         :youtube="video3"
         :height="'100%'"
         :width="'100%'"
-        v-on:trailer-close="show=true"
+        v-on:trailer-close="state.show=true"
       />
     </div>
     <div v-if="single" class="details">
@@ -47,63 +47,66 @@
 
 <script>
 import Trailer from "@/components/Trailer";
+import { reactive, computed, watchEffect } from "vue";
+import { useStore } from "vuex";
+
 export default {
   name: "OtherHead",
   components: {
     Trailer,
   },
-  created: function () {
-    this.$store.dispatch("single", this.$route.params.id);
-    this.$store.dispatch("similar", this.$route.params.id);
-  },
-  data() {
-    return {
+  props: ["id"],
+  setup(props) {
+    const store = useStore();
+    const state = reactive({
       isHovering: false,
       show: true,
+    });
+    store.dispatch("single", props.id);
+    store.dispatch("similar", props.id);
+
+    const single = computed(() => store.state.single || false);
+    const similar = computed(() => store.getters.similar || false);
+    const duration = computed(() => {
+      const x = single.value.runtime;
+      return Math.floor(x / 60) + "h : " + (x % 60) + "m";
+    });
+    const video3 = computed(() => {
+      const x = store.state.video_url3;
+      return x ? `http://www.youtube.com/embed/${x}?autoplay=1` : false;
+    });
+    const exists = computed(() =>
+      store.state.list?.find((e) => e.id === single.value.id)
+    );
+
+    const getVideo = () => {
+      state.show = false;
+      store.dispatch("getVideo", { url: single.value.id, number: 3 });
     };
-  },
-  methods: {
-    getVideo() {
-      this.show = false;
-      this.$store.dispatch("getVideo", { url: this.single.id, number: 3 });
-    },
-    handleClick() {
-      const e = this.single;
-      this.$store.commit("LIST", {
-        ...this.detail,
+    const handleClick = () => {
+      const e = single;
+      store.commit("LIST", {
         url: `url(https://image.tmdb.org/t/p/original${e.poster_path})`,
         title: e.original_title,
         year: e?.release_date.slice(0, 4),
         rating: e.vote_average,
         id: e.id,
       });
-    },
-  },
-  computed: {
-    single() {
-      return this.$store.state.single || false;
-    },
-    similar() {
-      return this.$store.getters.similar || false;
-    },
-    duration() {
-      const x = this.single.runtime;
-      return Math.floor(x / 60) + "h : " + (x % 60) + "m";
-    },
-    video3() {
-      const x = this.$store.state.video_url3;
-      return x ? `http://www.youtube.com/embed/${x}?autoplay=1` : false;
-    },
-    exists() {
-      const x = this.$store.state.list?.find((e) => e.id === this.single.id);
-      return x;
-    },
-  },
-  watch: {
-    $route() {
-      this.$store.dispatch("single", this.$route.params.id);
-      this.$store.dispatch("similar", this.$route.params.id);
-    },
+    };
+
+    watchEffect(() => store.dispatch("single", props.id));
+    watchEffect(() => store.dispatch("similar", props.id));
+
+    return {
+      state,
+      getVideo,
+      handleClick,
+      similar,
+      duration,
+      video3,
+      exists,
+      single,
+    };
   },
 };
 </script>

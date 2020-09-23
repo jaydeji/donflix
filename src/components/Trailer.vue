@@ -18,16 +18,6 @@
 export default {
   name: "Trailer",
   props: ["youtube"],
-  // watch: {
-  //   id: function() {
-  //     this.$store.dispatch("getVideo", this.id);
-  //   }
-  // },
-  // computed: {
-  //   vid() {
-  //     return this.youtube || false;
-  //   }
-  // }
 };
 </script>
 

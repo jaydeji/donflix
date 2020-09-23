@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore } from "vuex";
 import Card from "../components/Card";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -24,11 +26,13 @@ export default {
     Header,
     Footer,
   },
-  computed: {
-    list() {
-      const x = this.$store.state.list;
+  setup() {
+    const store = useStore();
+    const list = computed(() => {
+      const x = store.state.list;
       return x?.length ? x : null;
-    },
+    });
+    return { list };
   },
 };
 </script>

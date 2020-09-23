@@ -7,7 +7,7 @@
           <Card v-for="(c,key) in popular" :key="key" :data="c" v-on:click="setClick2(c.id)" />
         </div>
       </div>
-      <Trailer v-if="clicked2" v-on:trailer-close="close2" :youtube="video2" />
+      <Trailer v-if="state.clicked2" v-on:trailer-close="close2" :youtube="video2" />
     </div>
     <div v-if="recommendations">
       <Title :title="'Trending'" />
@@ -21,7 +21,7 @@
           />
         </div>
       </div>
-      <Trailer v-if="clicked" v-on:trailer-close="close" :youtube="video1" />
+      <Trailer v-if="state.clicked" v-on:trailer-close="close" :youtube="video1" />
     </div>
   </div>
 </template>
@@ -30,62 +30,71 @@
 import Title from "./Title";
 import Card from "./Card";
 import Trailer from "./Trailer";
+import { reactive, computed } from "vue";
+import { useStore } from "vuex";
+
 export default {
   name: "Body",
-  data() {
-    return {
+  setup() {
+    const store = useStore();
+    const state = reactive({
       clicked: false,
       clicked2: false,
       id: "",
       id2: "",
+    });
+
+    store.dispatch("recommended");
+    store.dispatch("popular");
+
+    const setClick = (id) => {
+      state.id = id;
+      state.clicked = true;
+      store.dispatch("getVideo", { url: id, number: 1 });
     };
-  },
-  methods: {
-    setClick(id) {
-      this.id = id;
-      this.clicked = true;
-      this.$store.dispatch("getVideo", { url: id, number: 1 });
-    },
-    setClick2(id) {
-      this.id2 = id;
-      this.clicked2 = true;
-      this.$store.dispatch("getVideo", { url: id, number: 2 });
-    },
-    close() {
-      this.clicked = false;
-    },
-    close2() {
-      this.clicked2 = false;
-    },
+    const setClick2 = (id) => {
+      state.id2 = id;
+      state.clicked2 = true;
+      store.dispatch("getVideo", { url: id, number: 2 });
+    };
+    const close = () => {
+      state.clicked = false;
+    };
+    const close2 = () => {
+      state.clicked2 = false;
+    };
+
+    const recommendations = computed(() => store.getters.recommendations);
+    const popular = computed(() => store.getters.popular);
+    const video1 = computed(() => {
+      const x = store.state;
+      return x?.video_url
+        ? `http://www.youtube.com/embed/${x.video_url}`
+        : false;
+    });
+    const video2 = computed(() => {
+      const x = store.state;
+      return x?.video_url2
+        ? `http://www.youtube.com/embed/${x.video_url2}`
+        : false;
+    });
+
+    return {
+      state,
+      setClick,
+      setClick2,
+      close,
+      close2,
+      recommendations,
+      popular,
+      video1,
+      video2,
+    };
   },
   components: {
     Title,
     Card,
     Trailer,
-  },
-  created: function () {
-    this.$store.dispatch("recommended");
-    this.$store.dispatch("popular");
-  },
-  computed: {
-    recommendations() {
-      return this.$store.getters.recommendations;
-    },
-    popular() {
-      return this.$store.getters.popular;
-    },
-    video1() {
-      const x = this.$store.state;
-      return x?.video_url
-        ? `http://www.youtube.com/embed/${x.video_url}`
-        : false;
-    },
-    video2() {
-      const x = this.$store.state;
-      return x?.video_url2
-        ? `http://www.youtube.com/embed/${x.video_url2}`
-        : false;
-    },
   },
 };
 </script>

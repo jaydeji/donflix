@@ -4,11 +4,11 @@ import Home from './pages/Home';
 import Detail from './pages/Other';
 import Search from './pages/Search';
 import List from './pages/List';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import vueStore from './store/';
-import VueRouter from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
-export const store = new Vuex.Store(vueStore);
+export const store = createStore(vueStore);
 
 const routes = [
   {
@@ -16,15 +16,18 @@ const routes = [
     component: App,
     children: [
       { path: '/', component: Home },
-      { path: 'detail/:id', component: Detail },
+      { path: 'detail/:id', component: Detail, props: true },
       { path: '/search', component: Search },
       { path: '/favourites', component: List },
     ],
   },
 ];
-const router = new VueRouter({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes,
 });
 
-createApp(App).use(router).use(store).mount('#app');
+createApp(App)
+  .use(store)
+  .use(router)
+  .mount('#app');

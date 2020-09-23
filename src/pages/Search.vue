@@ -3,7 +3,7 @@
     <Header />
     <div style="display:flex;justify-content:center;margin:20px 0">
       <form v-on:submit.prevent="handleSearch" class="search-box">
-        <input v-model.trim="search" />
+        <input v-model.trim="state.search" />
         <i class="fa fa-search" v-on:click="handleSearch"></i>
       </form>
     </div>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { reactive, computed, onBeforeMount } from "vue";
+import { useStore } from "vuex";
 import Card from "@/components/Card";
 import Title from "@/components/Title";
 import Header from "@/components/Header";
@@ -35,24 +37,22 @@ export default {
     Title,
     Header,
   },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       search: "",
+    });
+    const store = useStore();
+
+    const movies = computed(() => store.getters.searchMovie);
+
+    const handleSearch = () => {
+      store.commit("CLEARMOVIE");
+      store.dispatch("searchMovie", state.search);
     };
-  },
-  methods: {
-    handleSearch() {
-      this.$store.commit("CLEARMOVIE");
-      this.$store.dispatch("searchMovie", this.search);
-    },
-  },
-  computed: {
-    movies() {
-      return this.$store.getters.searchMovie;
-    },
-  },
-  beforeUnmount() {
-    this.$store.commit("RESETMOVIE");
+
+    onBeforeMount(() => store.commit("RESETMOVIE"));
+
+    return { state, handleSearch, movies };
   },
 };
 </script>

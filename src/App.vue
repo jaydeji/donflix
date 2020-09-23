@@ -1,23 +1,21 @@
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
-axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers['Authorization'] = `Bearer ${process.env.VUE_APP_KEY}`;
+axios.defaults.baseURL = "https://api.themoviedb.org/3/";
+axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.headers["Authorization"] = `Bearer ${process.env.VUE_APP_KEY}`;
 
 export default {
-  name: 'App',
+  name: "App",
 };
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap");
 
 * {
   border: none;
@@ -28,7 +26,7 @@ export default {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: black;
   color: white;
 }

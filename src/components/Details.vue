@@ -20,31 +20,36 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore } from "vuex";
+
 export default {
   name: "Details",
   props: ["detail"],
-  methods: {
-    handleClick() {
-      const e = this.detail;
-      this.$store.commit("LIST", {
-        ...this.detail,
+  setup(props) {
+    const store = useStore();
+
+    const duration = computed(() => {
+      const x = props.detail.runtime;
+      return Math.floor(x / 60) + "h : " + (x % 60) + "m";
+    });
+
+    const exists = computed(() =>
+      store.state.list?.find((e) => e.id === props.detail.id)
+    );
+
+    const handleClick = () => {
+      const e = props.detail;
+      store.commit("LIST", {
+        ...props.detail,
         url: `url(https://image.tmdb.org/t/p/original${e.poster_path})`,
         title: e.original_title,
         year: e?.release_date.slice(0, 4),
         rating: e.vote_average,
         id: e.id,
       });
-    },
-  },
-  computed: {
-    duration() {
-      const x = this.detail.runtime;
-      return Math.floor(x / 60) + "h : " + (x % 60) + "m";
-    },
-    exists() {
-      const x = this.$store.state.list?.find((e) => e.id === this.detail.id);
-      return x;
-    },
+    };
+    return { handleClick, duration, exists };
   },
 };
 </script>

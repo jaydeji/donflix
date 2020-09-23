@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <OtherHead />
+    <OtherHead :id="id" />
     <DetailsImages />
     <div v-if="similar">
       <Title :title="'Similar Movies'" />
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { computed, watchEffect } from "vue";
+import { useStore } from "vuex";
 import OtherHead from "@/components/OtherHead";
 import Card from "@/components/Card";
 import Title from "@/components/Title";
@@ -32,13 +34,16 @@ export default {
     DetailsImages,
     Footer,
   },
-  created() {
-    this.$store.dispatch("getImages", this.$route.params.id);
-  },
-  computed: {
-    similar() {
-      return this.$store.getters.similar || false;
-    },
+  props: ["id"],
+  setup(props) {
+    const store = useStore();
+    const similar = computed(() => store.getters.similar || false);
+
+    store.dispatch("getImages", props.id);
+
+    watchEffect(() => store.dispatch("getImages", props.id));
+
+    return { similar };
   },
   watch: {
     $route() {

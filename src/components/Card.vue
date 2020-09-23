@@ -7,7 +7,7 @@
     <div style="display:flex;justify-content:space-between">
       <span class="year">{{ data.year }}</span>
       <span style="width:60%;display:flex;justify-content:space-between">
-        <i @click="$emit('click')" class="fa fa-eye" style="cursor:pointer" aria-hidden="true"></i>
+        <i @click="click" class="fa fa-eye" style="cursor:pointer" aria-hidden="true"></i>
         <i
           class="fa fa-heart"
           @click="handleClick"
@@ -22,19 +22,25 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore } from "vuex";
+
 export default {
   name: "Card",
   props: ["data"],
-  methods: {
-    handleClick() {
-      this.$store.commit("LIST", this.data);
-    },
-  },
-  computed: {
-    color() {
-      const x = this.$store.state.list?.find((e) => e.id === this.data.id);
+  emits: ["click"],
+  setup(props, { emit }) {
+    const store = useStore();
+    const handleClick = () => {
+      store.commit("LIST", props.data);
+    };
+    const click = () => emit("click");
+    const color = computed(() => {
+      const x = store.state.list?.find((e) => e.id === props.data.id);
       return x ? "red" : "white";
-    },
+    });
+
+    return { color, handleClick, click };
   },
 };
 </script>

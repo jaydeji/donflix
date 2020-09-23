@@ -10,7 +10,7 @@ const getLocal = (data) => {
 };
 
 export default {
-  state: {
+  state: () => ({
     nowPlaying: null,
     recommended: null,
     video_url: null,
@@ -22,7 +22,7 @@ export default {
     images: null,
     searchMovie: undefined,
     list: getLocal(localStorage.getItem('list')) || [],
-  },
+  }),
   getters: {
     recommendations: (state) => {
       return state.recommended?.map((e) => ({
