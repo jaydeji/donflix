@@ -1,38 +1,29 @@
 <template>
-  <router-view></router-view>
+  <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  </div>
 </template>
 
-<script>
-import axios from "axios";
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import HelloWorld from './components/HelloWorld.vue';
 
-axios.defaults.baseURL = "https://api.themoviedb.org/3/";
-axios.defaults.headers.post["Content-Type"] = "application/json";
-axios.defaults.headers["Authorization"] = `Bearer ${process.env.VUE_APP_KEY}`;
-
-export default {
-  name: "App",
-};
+@Options({
+  components: {
+    HelloWorld,
+  },
+})
+export default class App extends Vue {}
 </script>
 
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap");
-
-* {
-  border: none;
-  outline: none;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Montserrat", sans-serif;
-  background-color: black;
-  color: white;
-}
-
-a {
-  color: unset;
-  text-decoration: unset;
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>

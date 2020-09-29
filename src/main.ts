@@ -1,11 +1,11 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import Home from './pages/Home';
-import Detail from './pages/Other';
-import Search from './pages/Search';
-import List from './pages/List';
+import Home from './pages/Home.vue';
+import Detail from './pages/Other.vue';
+import Search from './pages/Search.vue';
+import List from './pages/List.vue';
 import { createStore } from 'vuex';
-import vueStore from './store/';
+import vueStore from './store/index';
 import { createRouter, createWebHistory } from 'vue-router';
 
 export const store = createStore(vueStore);
