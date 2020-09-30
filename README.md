@@ -6,6 +6,7 @@ Live Url [Donflix](https://donflix.netlify.app/).
 
 - Vue 3 beta, composition api and Vuex
 - TMDB movies api
+- Typescript
 
 ## Project setup
 
