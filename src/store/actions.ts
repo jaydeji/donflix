@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { ActionContext } from 'vuex';
+import { State } from './index';
 
 export default {
-  async nowPlaying({ commit }: ActionContext<any, any>) {
+  async nowPlaying({ commit }: ActionContext<State, any>) {
     const res = await axios
       .get('movie/now_playing')
       // .get('movie/531454/videos)
@@ -22,7 +23,7 @@ export default {
     );
     commit('NOW_PLAYING', x);
   },
-  async recommended({ commit }: ActionContext<any, any>) {
+  async recommended({ commit }: ActionContext<State, any>) {
     const res = await axios.get('trending/movie/day').catch((error) => {
       throw new Error(`API ${error}`);
     });
@@ -36,7 +37,7 @@ export default {
     commit('RECOMMENDED', x);
   },
 
-  async getVideo({ commit }: ActionContext<any, any>, payload: any) {
+  async getVideo({ commit }: ActionContext<State, any>, payload: any) {
     const res = await axios
       .get(`movie/${payload.url}/videos`)
       .catch((error) => {
@@ -48,7 +49,7 @@ export default {
     });
   },
 
-  async getImages({ commit }: ActionContext<any, any>, payload: any) {
+  async getImages({ commit }: ActionContext<State, any>, payload: any) {
     const res = await axios.get(`movie/${payload}/images`).catch((error) => {
       throw new Error(`API ${error}`);
     });
@@ -61,7 +62,7 @@ export default {
     });
   },
 
-  async popular({ commit }: ActionContext<any, any>) {
+  async popular({ commit }: ActionContext<State, any>) {
     const res = await axios.get('movie/popular').catch((error) => {
       throw new Error(`API ${error}`);
     });
@@ -75,21 +76,24 @@ export default {
     commit('POPULAR', x);
   },
 
-  async single({ commit }: ActionContext<any, any>, id: string | number) {
+  async single({ commit }: ActionContext<State, any>, id: string | number) {
     const res = await axios.get(`movie/${id}`).catch((error) => {
       throw new Error(`API ${error}`);
     });
     commit('SINGLE', res.data);
   },
 
-  async similar({ commit }: ActionContext<any, any>, id: string | number) {
+  async similar({ commit }: ActionContext<State, any>, id: string | number) {
     const res = await axios.get(`movie/${id}/similar`).catch((error) => {
       throw new Error(`API ${error}`);
     });
     commit('SIMILAR', res.data);
   },
 
-  async searchMovie({ commit }: ActionContext<any, any>, searchString: string) {
+  async searchMovie(
+    { commit }: ActionContext<State, any>,
+    searchString: string
+  ) {
     const res = await axios
       .get('search/movie?query=' + searchString)
       .catch((error) => {
